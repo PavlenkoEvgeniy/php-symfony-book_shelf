@@ -41,6 +41,9 @@ class Book
     #[ORM\ManyToMany(targetEntity: Author::class, mappedBy: 'books')]
     private Collection $authors;
 
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    private ?Publisher $publisher = null;
+
     public function __construct()
     {
         $this->authors = new ArrayCollection();
@@ -122,6 +125,18 @@ class Book
         if ($this->authors->removeElement($author)) {
             $author->removeBook($this);
         }
+
+        return $this;
+    }
+
+    public function getPublisher(): ?Publisher
+    {
+        return $this->publisher;
+    }
+
+    public function setPublisher(?Publisher $publisher): static
+    {
+        $this->publisher = $publisher;
 
         return $this;
     }
