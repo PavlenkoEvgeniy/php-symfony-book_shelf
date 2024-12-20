@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -35,14 +36,16 @@ class Book
     #[ORM\Column(options: ['default' => true])]
     private ?bool $isPublished = null;
 
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    private ?Publisher $publisher = null;
+
     /**
      * @var Collection<int, Author>
      */
-    #[ORM\ManyToMany(targetEntity: Author::class, mappedBy: 'books')]
+    #[ORM\ManyToMany(targetEntity: Author::class, fetch: 'EAGER')]
+    #[ORM\JoinTable(name: 'author_book')]
+    #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
     private Collection $authors;
-
-    #[ORM\ManyToOne(inversedBy: 'books')]
-    private ?Publisher $publisher = null;
 
     public function __construct()
     {
@@ -90,12 +93,12 @@ class Book
         return $this;
     }
 
-    public function isPublished(): ?bool
+    public function getIsPublished(): ?bool
     {
         return $this->isPublished;
     }
 
-    public function setPublished(bool $isPublished): static
+    public function setIsPublished(bool $isPublished): static
     {
         $this->isPublished = $isPublished;
 

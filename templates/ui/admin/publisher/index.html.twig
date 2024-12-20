@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publisher index{% endblock %}
+
+{% block body %}
+    <h1>Publisher index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Address</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>DeletedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for publisher in publishers %}
+            <tr>
+                <td>{{ publisher.id }}</td>
+                <td>{{ publisher.title }}</td>
+                <td>{{ publisher.address }}</td>
+                <td>{{ publisher.createdAt ? publisher.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ publisher.updatedAt ? publisher.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ publisher.deletedAt ? publisher.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a class="btn btn-secondary" href="{{ path('ui_admin_publisher.show', {'id': publisher.id}) }}">Show</a>
+                    <a class="btn btn-warning" href="{{ path('ui_admin_publisher.edit', {'id': publisher.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('ui_admin_publisher.new') }}">Create new</a>
+{% endblock %}

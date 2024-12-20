@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book{% endblock %}
+
+{% block body %}
+    <h1>Book</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ book.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ book.description }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ book.content }}</td>
+            </tr>
+            <tr>
+                <th>IsPublished</th>
+                <td>{{ book.isPublished ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Authors</th>
+                {{ dump(book) }}
+                <td>
+                    {% if book.authors is not empty %}
+                        {% for author in book.authors %}
+                            {{ author.familyName ~ ' ' ~ author.firtsName }}, 
+                        {% endfor %}
+                    {% else %}
+                        No authors found...
+                    {% endif %}
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ book.createdAt ? book.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ book.updatedAt ? book.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DeletedAt</th>
+                <td>{{ book.deletedAt ? book.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-secondary" href="{{ path('ui_admin_book.index') }}">Back to list</a>
+
+    <a class="btn btn-warning" href="{{ path('ui_admin_book.edit', {'id': book.id}) }}">Edit</a>
+
+    {{ include('ui/admin/book/_delete_form.html.twig') }}
+{% endblock %}

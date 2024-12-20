@@ -6,6 +6,7 @@ use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -34,7 +35,9 @@ class Author
     /**
      * @var Collection<int, Book>
      */
-    #[ORM\ManyToMany(targetEntity: Book::class, inversedBy: 'authors')]
+    #[ORM\ManyToMany(targetEntity: Book::class)]
+    #[ORM\JoinTable(name: 'author_book')]
+    #[ORM\JoinColumn(name: 'author_id', referencedColumnName: 'id')]
     private Collection $books;
 
     public function __construct()
@@ -71,12 +74,12 @@ class Author
         return $this;
     }
 
-    public function isEnabled(): ?bool
+    public function getIsEnabled(): ?bool
     {
         return $this->isEnabled;
     }
 
-    public function setEnabled(bool $isEnabled): static
+    public function setIsEnabled(bool $isEnabled): static
     {
         $this->isEnabled = $isEnabled;
 
@@ -95,6 +98,7 @@ class Author
     {
         if (!$this->books->contains($book)) {
             $this->books->add($book);
+            $book->addAuthor($this);
         }
 
         return $this;

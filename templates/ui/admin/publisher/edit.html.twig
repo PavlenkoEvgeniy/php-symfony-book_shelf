@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Publisher{% endblock %}
+
+{% block body %}
+    <h1>Edit Publisher</h1>
+
+    {{ include('ui/admin/publisher/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-secondary" href="{{ path('ui_admin_publisher.index') }}">Back to list</a>
+
+    {{ include('ui/admin/publisher/_delete_form.html.twig') }}
+{% endblock %}

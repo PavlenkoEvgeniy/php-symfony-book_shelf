@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Publisher{% endblock %}
+
+{% block body %}
+    <h1>Create new Publisher</h1>
+
+    {{ include('ui/admin/publisher/_form.html.twig') }}
+
+    <a class="btn btn-secondary" href="{{ path('ui_admin_publisher.index') }}">Back to list</a>
+{% endblock %}
