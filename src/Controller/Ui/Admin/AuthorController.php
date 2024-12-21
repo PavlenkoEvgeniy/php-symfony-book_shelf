@@ -56,8 +56,6 @@ class AuthorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($author);
-
             $entityManager->flush();
 
             return $this->redirectToRoute('ui_admin_author.index', [], Response::HTTP_SEE_OTHER);
