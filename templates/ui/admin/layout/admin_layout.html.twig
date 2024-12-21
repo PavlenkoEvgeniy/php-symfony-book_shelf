@@ -8,6 +8,11 @@
 </head>
 <body>
     <div class="container">
+        <nav class="d-flex justify-content-around">
+            <a href="{{ path('ui_admin_author.index') }}">Author</a>
+            <a href="{{ path('ui_admin_book.index') }}">Book</a>
+            <a href="{{ path('ui_admin_publisher.index') }}">Publisher</a>
+        </nav>
         {% block body %}{% endblock %}
     </div>
 

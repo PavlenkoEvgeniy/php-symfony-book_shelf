@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookShelfController!
+{% endblock %}
+
+{% block body %}
+	<h1>Welcome to book shelf</h1>
+    <hr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Content</th>
+				<th>Authors</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for book in books %}
+				<tr>
+					<td>{{ book.id }}</td>
+					<td>{{ book.title }}</td>
+					<td>{{ book.description }}</td>
+
+					<td>{{ book.content }}</td>
+					<td>
+						{% if book.authors is not empty %}
+							{% for author in book.authors %}
+								{{ author ~ ", "}}
+							{% endfor %}
+						{% endif %}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="9">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
