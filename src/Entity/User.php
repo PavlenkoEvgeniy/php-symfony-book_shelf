@@ -68,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      *
-     * @return list<string>
+     * @return string[]
      */
     public function getRoles(): array
     {
@@ -92,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): null|string
     {
         return $this->password;
     }
