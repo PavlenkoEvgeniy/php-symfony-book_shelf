@@ -112,6 +112,6 @@ class Author
 
     public function __toString(): string
     {
-        return $this->familyName . " " . $this->firtsName;
+        return $this->familyName . ' ' . $this->firtsName;
     }
 }
