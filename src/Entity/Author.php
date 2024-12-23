@@ -26,7 +26,7 @@ class Author
     private ?string $familyName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $firtsName = null;
+    private ?string $firstName = null;
 
     #[ORM\Column(options: ['default' => true])]
     private ?bool $isEnabled = null;
@@ -37,6 +37,7 @@ class Author
     #[ORM\ManyToMany(targetEntity: Book::class)]
     #[ORM\JoinTable(name: 'author_book')]
     #[ORM\JoinColumn(name: 'author_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'book_id', referencedColumnName: 'id')]
     private Collection $books;
 
     public function __construct()
@@ -61,14 +62,14 @@ class Author
         return $this;
     }
 
-    public function getFirtsName(): ?string
+    public function getfirstName(): ?string
     {
-        return $this->firtsName;
+        return $this->firstName;
     }
 
-    public function setFirtsName(string $firtsName): static
+    public function setfirstName(string $firstName): static
     {
-        $this->firtsName = $firtsName;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -110,8 +111,13 @@ class Author
         return $this;
     }
 
+    public function getFullName(): string
+    {
+        return $this->familyName . ' ' . $this->firstName;
+    }
+
     public function __toString(): string
     {
-        return $this->familyName . ' ' . $this->firtsName;
+        return $this->familyName . ' ' . $this->firstName;
     }
 }

@@ -33,7 +33,7 @@
                 <td>
                     {% if book.authors is not empty %}
                         {% for author in book.authors %}
-                            {{ author.familyName ~ ' ' ~ author.firtsName }}, 
+                            {{ author.familyName ~ ' ' ~ author.firstName }}, 
                         {% endfor %}
                     {% else %}
                         No authors found...

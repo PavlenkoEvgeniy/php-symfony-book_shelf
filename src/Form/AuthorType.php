@@ -10,23 +10,36 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AuthorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('familyName', TextType::class)
-            ->add('firtsName', TextType::class)
+            ->add('familyName', TextType::class, [
+                'required'    => true,
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
+            ->add('firstName', TextType::class, [
+                'required'    => true,
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
             ->add('isEnabled', ChoiceType::class, [
-                'choices' => [
+                'required' => true,
+                'choices'  => [
                     'on'  => true,
                     'off' => false,
                 ],
             ])
             ->add('books', EntityType::class, [
+                'required'     => false,
                 'class'        => Book::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
                 'multiple'     => true,
                 'expanded'     => true,
             ])

@@ -10,7 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>FamilyName</th>
-                <th>FirtsName</th>
+                <th>firstName</th>
                 <th>IsEnabled</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ author.id }}</td>
                 <td>{{ author.familyName }}</td>
-                <td>{{ author.firtsName }}</td>
+                <td>{{ author.firstName }}</td>
                 <td>{{ author.isEnabled ? 'Yes' : 'No' }}</td>
                 <td>{{ author.createdAt ? author.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ author.updatedAt ? author.updatedAt|date('Y-m-d H:i:s') : '' }}</td>

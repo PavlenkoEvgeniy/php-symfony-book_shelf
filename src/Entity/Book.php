@@ -41,9 +41,10 @@ class Book
     /**
      * @var Collection<int, Author>
      */
-    #[ORM\ManyToMany(targetEntity: Author::class, fetch: 'EAGER')]
-    #[ORM\JoinTable(name: 'author_book')]
+    #[ORM\ManyToMany(targetEntity: Author::class)]
+    #[ORM\JoinTable(name: 'author_book', options: ['if'])]
     #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'author_id', referencedColumnName: 'id')]
     private Collection $authors;
 
     public function __construct()
