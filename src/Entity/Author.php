@@ -34,10 +34,7 @@ class Author
     /**
      * @var Collection<int, Book>
      */
-    #[ORM\ManyToMany(targetEntity: Book::class)]
-    #[ORM\JoinTable(name: 'author_book')]
-    #[ORM\JoinColumn(name: 'author_id', referencedColumnName: 'id')]
-    #[ORM\InverseJoinColumn(name: 'book_id', referencedColumnName: 'id')]
+    #[ORM\ManyToMany(targetEntity: Book::class, inversedBy: 'authors')]
     private Collection $books;
 
     public function __construct()
@@ -86,6 +83,16 @@ class Author
         return $this;
     }
 
+    public function getFullName(): string
+    {
+        return $this->familyName . ' ' . $this->firstName;
+    }
+
+    public function __toString(): string
+    {
+        return $this->familyName . ' ' . $this->firstName;
+    }
+
     /**
      * @return Collection<int, Book>
      */
@@ -109,15 +116,5 @@ class Author
         $this->books->removeElement($book);
 
         return $this;
-    }
-
-    public function getFullName(): string
-    {
-        return $this->familyName . ' ' . $this->firstName;
-    }
-
-    public function __toString(): string
-    {
-        return $this->familyName . ' ' . $this->firstName;
     }
 }

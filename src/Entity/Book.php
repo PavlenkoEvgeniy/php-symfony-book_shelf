@@ -41,10 +41,7 @@ class Book
     /**
      * @var Collection<int, Author>
      */
-    #[ORM\ManyToMany(targetEntity: Author::class)]
-    #[ORM\JoinTable(name: 'author_book', options: ['if'])]
-    #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
-    #[ORM\InverseJoinColumn(name: 'author_id', referencedColumnName: 'id')]
+    #[ORM\ManyToMany(targetEntity: Author::class, mappedBy: 'books')]
     private Collection $authors;
 
     public function __construct()
@@ -105,6 +102,18 @@ class Book
         return $this;
     }
 
+    public function getPublisher(): ?Publisher
+    {
+        return $this->publisher;
+    }
+
+    public function setPublisher(?Publisher $publisher): static
+    {
+        $this->publisher = $publisher;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Author>
      */
@@ -128,18 +137,6 @@ class Book
         if ($this->authors->removeElement($author)) {
             $author->removeBook($this);
         }
-
-        return $this;
-    }
-
-    public function getPublisher(): ?Publisher
-    {
-        return $this->publisher;
-    }
-
-    public function setPublisher(?Publisher $publisher): static
-    {
-        $this->publisher = $publisher;
 
         return $this;
     }
