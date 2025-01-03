@@ -50,6 +50,7 @@ class BookType extends AbstractType
                 'choice_label' => 'fullName',
                 'multiple'     => true,
                 'expanded'     => true,
+                'by_reference' => false,
             ])
             ->add('publisher', EntityType::class, [
                 'required'     => false,
