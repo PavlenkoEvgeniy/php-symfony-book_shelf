@@ -53,7 +53,11 @@
 
     <a class="btn btn-secondary" href="{{ path('ui_admin_author.index') }}">Back to list</a>
 
+    <br>
+
     <a class="btn btn-warning" href="{{ path('ui_admin_author.edit', {'id': author.id}) }}">Edit</a>
+
+    <br>
 
     {{ include('ui/admin/author/_delete_form.html.twig') }}
 {% endblock %}
